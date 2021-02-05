@@ -8,3 +8,17 @@ before_install:
 
 script:
   - docker run -e CI=true reactapp/netflix npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-1"
+  app: "docker_react"
+  env: "Dockerreact-env"
+  bucket-name: "elasticbeanstalk-ap-northeast-1-956635543452"
+  #パスは何でも良い
+  bucket-path: "docker_react"
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_kry:
+    secret: $AWS_SECRET_KEY
