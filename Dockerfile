@@ -7,7 +7,7 @@ COPY  . .
 RUN npm run build
 
 FROM nginx
-EXPOSE 80
-# AWSに移行後は--from=0とする
+# AWSに移行後は--from=0とする.
 COPY --from=0  /app/build /usr/share/nginx/html
-CMD ["/usr/sbin/nginx", "-c", "/etc/nginx/nginx.conf"]
+EXPOSE 80
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
