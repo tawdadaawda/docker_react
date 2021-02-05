@@ -1,0 +1,11 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t reactapp/netflix -f Dockerfile.dev .
+
+script:
+  #修正版
+  - docker run -e CI=true reactapp/netflix npm run test -- --coverage
