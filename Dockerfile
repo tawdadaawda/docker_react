@@ -3,7 +3,7 @@ FROM node:alpine
 WORKDIR '/app'
 COPY ["package.json", "yarn.lock", "./"]
 RUN yarn install
-COPY  ./ ./
+COPY  . .
 RUN npm run build
 
 FROM nginx
