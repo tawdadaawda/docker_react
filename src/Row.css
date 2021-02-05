@@ -1,0 +1,42 @@
+.row {
+  margin-left: 20px;
+  color: aliceblue;
+}
+
+.row_posters {
+  /*横に並べる*/
+  display: flex;
+  /*縦方向のスクロールはなくし、横方向のスクロールをつける*/
+  overflow-y: hidden;
+  overflow-x: scroll;
+  /*拡大表示を使うならpaddingを使うときれい*/
+  padding: 20px;
+}
+
+.row_posters::-webkit-scrollbar {
+  display: none;
+}
+
+.row_poster {
+  object-fit: contain;
+  width: 100%;
+  max-height: 100px;
+  margin-right: 10px;
+  /*サイズ調整の時間を伸ばす*/
+  transition: transform 450ms;
+}
+
+.row_poster:hover {
+  /*ホバー時にサイズを1.08倍にする*/
+  transform: scale(1.08);
+}
+
+.row_posterLarge {
+  /*largeの場合は、大きめのサイズへ*/
+  max-height: 250px;
+}
+
+.row_posterLarge:hover {
+  /*largeの場合は、ホバー時にサイズを1.08倍にする*/
+  transform: scale(1.09);
+}
