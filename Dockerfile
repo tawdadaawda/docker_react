@@ -1,12 +1,28 @@
-# as 以降はAWSに移行するとエラーになるので、消す
+#Specify a base image
 FROM node:alpine
-WORKDIR '/app'
-COPY ["package.json", "yarn.lock", "./"]
-RUN yarn install
-COPY  ./ ./
-RUN npm run build
 
-FROM nginx
+#Specify a working directory
+WORKDIR '/app'
+
+#Copy the dependencies file
+COPY ./package.json /app/package.json
+COPY ./package-lock.json /app/package-lock.json
+
+
+#Install dependencies
+RUN yarn install
+
+#Copy remaining files
+COPY . .
+
+#Build the project for production
+RUN yarn build
+
+#Run Stage Start
+FROM nginx:latest
+
+# expose port 80
 EXPOSE 80
-# AWSに移行後は--from=0とする
-COPY --from=0  /app/build /usr/share/nginx/html
+
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=0 /app/build /usr/share/nginx/html
